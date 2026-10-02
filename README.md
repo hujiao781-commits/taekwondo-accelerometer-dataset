@@ -39,7 +39,7 @@ taekwondo-accelerometer-dataset/
 │   ├── label_kick_technique.csv    # Kicking labels
 │   ├── data_punch_technique.csv    # Upper-limb acceleration windows
 │   ├── label_punch_technique.csv   # Upper-limb labels
-│   └── participant_metadata.csv    # Per-participant information
+│   └── cohort_summary.csv          # Aggregate cohort demographics
 ├── code/
 │   ├── taekwondo_recognition.ipynb # Full analysis pipeline
 │   └── preprocessing.py            # Format conversion and integrity checks
@@ -68,9 +68,9 @@ The signals retain the physical **g** units and the gravity component; no filter
 - `id`: identifier matching the data file.
 - `label`: technique label (e.g., `Left Front Kick`, `Right Straight Punch`).
 
-### 3.3 Participant metadata (`participant_metadata.csv`)
+### 3.3 Cohort summary (`cohort_summary.csv`)
 
-Per-participant age, sex, height, weight, BMI, training experience, and belt rank. Limb dominance (handedness) was not recorded and is therefore not included.
+Aggregate cohort demographics — participant counts by sex and the group-level mean +/- SD for age, height, body weight, and BMI, together with training-background and belt/competition-level counts. Demographics are released at the group level; per-participant demographic records and limb-dominance (handedness) information are not included.
 
 ## 4. Quick Start
 

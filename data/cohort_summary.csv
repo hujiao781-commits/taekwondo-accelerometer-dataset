@@ -1,0 +1,14 @@
+variable,value,unit_or_note
+number_of_participants,20,count
+male,7,count
+female,13,count
+age,21.45 +/- 1.73,years (mean +/- SD)
+height,169.35 +/- 7.82,cm (mean +/- SD)
+body_weight,61.84 +/- 14.22,kg (mean +/- SD)
+bmi,21.40 +/- 3.50,kg/m^2 (mean +/- SD)
+professional_athletes,10,count
+amateur_practitioners,10,count
+black_belt_first_dan,4,professional subgroup
+national_level_1_athletes,6,professional subgroup; certificates may overlap with other ranks
+national_level_2_athletes,3,professional subgroup; certificates may overlap with other ranks
+amateur_no_belt_rank,10,amateur subgroup

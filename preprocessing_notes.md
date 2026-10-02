@@ -64,8 +64,8 @@ During the downstream analysis, z-score standardization is computed **within eac
 
 ## 6. Participant information
 
-- Per-participant age, sex, height, weight, BMI, training experience, and belt rank are provided in `data/participant_metadata.csv`.
-- Limb dominance (handedness) was **not recorded** and is therefore not included.
+- Aggregate cohort demographics (sex counts and group-level mean +/- SD for age, height, weight, and BMI, plus training-background and belt/competition-level counts) are provided in `data/cohort_summary.csv`.
+- Demographics are released at the group level; per-participant demographic records and limb dominance (handedness) information are not included.
 - All records were anonymized, and the raw continuous recordings are not publicly released, to protect participant privacy.
 
 ## 7. Reproducibility
