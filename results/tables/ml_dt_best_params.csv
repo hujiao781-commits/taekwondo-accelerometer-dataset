@@ -1,0 +1,11 @@
+fold,best_params
+0,"{'max_depth': None, 'min_samples_split': 5}"
+1,"{'max_depth': None, 'min_samples_split': 2}"
+2,"{'max_depth': None, 'min_samples_split': 2}"
+3,"{'max_depth': 8, 'min_samples_split': 5}"
+4,"{'max_depth': None, 'min_samples_split': 5}"
+5,"{'max_depth': None, 'min_samples_split': 2}"
+6,"{'max_depth': None, 'min_samples_split': 2}"
+7,"{'max_depth': None, 'min_samples_split': 5}"
+8,"{'max_depth': None, 'min_samples_split': 2}"
+9,"{'max_depth': 8, 'min_samples_split': 2}"
