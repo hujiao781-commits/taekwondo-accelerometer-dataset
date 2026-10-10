@@ -3,9 +3,9 @@
 """Preprocessing for the five-body-site Taekwondo accelerometer dataset.
 
 Converts the source workbooks (two of which are CSV text saved with an .xlsx
-extension and two of which are genuine Excel files) into standard UTF-8 CSV,
-translates the kicking action names to English for consistency, and runs
-integrity / range checks.
+extension and two of which are genuine Excel files) into standard Excel (XLSX)
+workbooks, translates the kicking action names to English for consistency, and
+runs integrity / range checks.
 
 Usage
 -----
@@ -133,7 +133,7 @@ def main() -> None:
         help="Source dataset root containing kick/punch technique folders")
     parser.add_argument("--dst", default=os.environ.get(
         "TAEKWONDO_DATA_ROOT", str(Path(__file__).resolve().parent.parent / "data")),
-        help="Output directory for the standard CSV files")
+        help="Output directory for the standard XLSX files")
     args = parser.parse_args()
 
     src_dir = Path(args.src)
@@ -141,15 +141,15 @@ def main() -> None:
     dst_dir.mkdir(parents=True, exist_ok=True)
 
     outputs = {
-        "kick": ("data_kick_technique.csv", "label_kick_technique.csv"),
-        "punch": ("data_punch_technique.csv", "label_punch_technique.csv"),
+        "kick": ("data_kick_technique.xlsx", "label_kick_technique.xlsx"),
+        "punch": ("data_punch_technique.xlsx", "label_punch_technique.xlsx"),
     }
 
     for region, (data_name, label_name) in outputs.items():
         data, label = convert_region(src_dir, region)
         check_region(data, label, region)
-        data.to_csv(dst_dir / data_name, index=False, encoding="utf-8")
-        label.to_csv(dst_dir / label_name, index=False, encoding="utf-8")
+        data.to_excel(dst_dir / data_name, index=False, sheet_name="data")
+        label.to_excel(dst_dir / label_name, index=False, sheet_name="label")
         print(f"[{region}] wrote {data_name} and {label_name} -> {dst_dir}")
 
     print("Preprocessing and integrity checks completed successfully.")

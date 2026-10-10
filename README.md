@@ -1,7 +1,7 @@
 # A Five-Body-Site Wearable Accelerometer Dataset for Taekwondo Technique Recognition
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![Data](https://img.shields.io/badge/data-CSV-blue.svg)](./data)
+[![Data](https://img.shields.io/badge/data-XLSX-green.svg)](./data)
 [![Code](https://img.shields.io/badge/code-Python-orange.svg)](./code)
 
 This repository accompanies the manuscript *"A five-body-site wearable accelerometer dataset for Taekwondo technique recognition"* and provides synchronized multi-site accelerometer recordings of standardized Taekwondo techniques together with the analysis code used for data quality control and technique recognition.
@@ -24,7 +24,7 @@ The dataset contains synchronized tri-axial acceleration signals collected from 
 | Acceleration channels | 15 (5 sensors x 3 axes) |
 | Samples per class | 86-105 |
 
-Participants were healthy adults recruited from a Chinese sports university (mean age 21.45 +/- 1.73 years; 7 male, 13 female). The cohort included both professional athletes (black-belt holders) and amateur practitioners; complete beginners and elderly practitioners were not represented.
+Participants were healthy adults recruited from a Chinese sports university (mean age 21.45 +/- 1.73 years; 6 male, 14 female). The cohort included both professional athletes (black-belt holders) and amateur practitioners; complete beginners and elderly practitioners were not represented.
 
 ## 2. Repository Structure
 
@@ -35,11 +35,11 @@ taekwondo-accelerometer-dataset/
 ├── requirements.txt
 ├── preprocessing_notes.md          # Data processing and quality-control notes
 ├── data/
-│   ├── data_kick_technique.csv     # Kicking acceleration windows
-│   ├── label_kick_technique.csv    # Kicking labels
-│   ├── data_punch_technique.csv    # Upper-limb acceleration windows
-│   ├── label_punch_technique.csv   # Upper-limb labels
-│   └── cohort_summary.csv          # Aggregate cohort demographics
+│   ├── data_kick_technique.xlsx    # Kicking acceleration windows
+│   ├── label_kick_technique.xlsx   # Kicking labels
+│   ├── data_punch_technique.xlsx   # Upper-limb acceleration windows
+│   ├── label_punch_technique.xlsx  # Upper-limb labels
+│   └── cohort_summary.xlsx         # Aggregate cohort demographics
 ├── code/
 │   ├── taekwondo_recognition.ipynb # Full analysis pipeline
 │   └── preprocessing.py            # Format conversion and integrity checks
@@ -50,7 +50,7 @@ taekwondo-accelerometer-dataset/
 
 ## 3. Data Format
 
-### 3.1 Acceleration data (`data_*.csv`)
+### 3.1 Acceleration data (`data_*.xlsx`)
 
 Each row is one time point of a 4-second (120-point) technique window. Columns:
 
@@ -63,12 +63,12 @@ Each row is one time point of a 4-second (120-point) technique window. Columns:
 
 The signals retain the physical **g** units and the gravity component; no filtering, coordinate transformation, or other irreversible processing was applied to the released data.
 
-### 3.2 Label files (`label_*.csv`)
+### 3.2 Label files (`label_*.xlsx`)
 
 - `id`: identifier matching the data file.
 - `label`: technique label (e.g., `Left Front Kick`, `Right Straight Punch`).
 
-### 3.3 Cohort summary (`cohort_summary.csv`)
+### 3.3 Cohort summary (`cohort_summary.xlsx`)
 
 Aggregate cohort demographics — participant counts by sex and the group-level mean +/- SD for age, height, body weight, and BMI, together with training-background and belt/competition-level counts. Demographics are released at the group level; per-participant demographic records and limb-dominance (handedness) information are not included.
 
@@ -78,12 +78,12 @@ Aggregate cohort demographics — participant counts by sex and the group-level 
 import pandas as pd
 
 # Kicking techniques
-kick_data  = pd.read_csv("data/data_kick_technique.csv")
-kick_label = pd.read_csv("data/label_kick_technique.csv")
+kick_data  = pd.read_excel("data/data_kick_technique.xlsx")
+kick_label = pd.read_excel("data/label_kick_technique.xlsx")
 
 # Upper-limb (punch/block) techniques
-punch_data  = pd.read_csv("data/data_punch_technique.csv")
-punch_label = pd.read_csv("data/label_punch_technique.csv")
+punch_data  = pd.read_excel("data/data_punch_technique.xlsx")
+punch_label = pd.read_excel("data/label_punch_technique.xlsx")
 ```
 
 To reproduce the full analysis, install the dependencies and run the notebook:
@@ -93,24 +93,24 @@ pip install -r requirements.txt
 jupyter notebook code/taekwondo_recognition.ipynb
 ```
 
-The notebook performs data loading and integrity checks, feature extraction, subject-level 10-fold leave-two-subjects-out cross-validation, classical and deep-learning baselines, sensor ablation, and figure/table generation. Set the environment variable `TAEKWONDO_DATA_ROOT` to point at the `data/` directory if it is moved.
+The notebook performs data loading and integrity checks, feature extraction, subject-level 10-fold leave-two-subjects-out cross-validation, classical and deep-learning baselines, sensor ablation, and figure/table generation. Set the environment variable `TAEKWONDO_DATA_ROOT` to point at the `data/` directory if it is moved; the loader accepts both the flat released layout and the original nested (`kick technique` / `punch technique`) layout.
 
 ## 5. Technical Validation Highlights
 
 All 1,522 windows passed integrity checks: exactly 120 continuous time points, no missing values or corrupted channels, and synchronized sensor timestamps. The vast majority of acceleration values lie within the sensor's linear +/-6 g per-axis range; a small number of transient instantaneous readings slightly exceed +/-6 g at impact and are not used for quantitative peak-acceleration analysis.
 
-Under a subject-level 10-fold leave-two-subjects-out protocol (all trials of a participant kept within one fold; scaling and tuning fitted only on training data):
+Under a subject-level 10-fold leave-two-subjects-out protocol (all trials of a participant kept within one fold; scaling and tuning fitted only on training data; values are mean +/- SD over the ten folds):
 
 | Model | Accuracy | Weighted F1 | Macro F1 |
 | --- | --- | --- | --- |
-| SVM (RBF) | 0.871 +/- 0.080 | 0.858 +/- 0.086 | 0.846 +/- 0.104 |
-| Random forest | 0.837 +/- 0.097 | 0.813 +/- 0.118 | 0.803 +/- 0.130 |
-| Decision tree | 0.499 +/- 0.201 | 0.460 +/- 0.211 | 0.461 +/- 0.199 |
-| ResNet | 0.889 +/- 0.070 | 0.878 +/- 0.080 | 0.868 +/- 0.087 |
-| GRU | 0.663 +/- 0.170 | 0.615 +/- 0.185 | 0.619 +/- 0.171 |
-| Transformer | 0.743 +/- 0.095 | 0.706 +/- 0.106 | 0.696 +/- 0.112 |
+| SVM (RBF) | 0.882 +/- 0.050 | 0.879 +/- 0.052 | 0.879 +/- 0.056 |
+| Random forest | 0.823 +/- 0.085 | 0.814 +/- 0.091 | 0.810 +/- 0.100 |
+| Decision tree | 0.603 +/- 0.075 | 0.585 +/- 0.075 | 0.589 +/- 0.089 |
+| ResNet | 0.905 +/- 0.033 | 0.902 +/- 0.035 | 0.904 +/- 0.042 |
+| GRU | 0.710 +/- 0.115 | 0.684 +/- 0.127 | 0.673 +/- 0.133 |
+| Transformer | 0.781 +/- 0.066 | 0.769 +/- 0.067 | 0.765 +/- 0.075 |
 
-Sensor ablation (SVM macro-F1) confirms that the full five-body-site configuration is the most informative: all 15 channels 0.870, upper-limb subset (wrists + L5) 0.814, wrists only 0.702, lower-limb subset (ankles + L5) 0.618, ankles only 0.570, L5 only 0.448.
+Sensor ablation (SVM; metrics pooled across the ten held-out test folds) confirms that the full five-body-site configuration is the most informative: all 15 channels 0.885, upper-limb subset (wrists + L5) 0.815, wrists only 0.702, lower-limb subset (ankles + L5) 0.624, ankles only 0.580, L5 only 0.499.
 
 ## 6. Limitations
 
@@ -118,7 +118,7 @@ The cohort was recruited from a single sports university and consists primarily 
 
 ## 7. Data and Code Availability
 
-The processed, segmented data and the complete analysis code are provided in this repository. The raw continuous sensor recordings are not publicly released to protect participant privacy; the released data retain the original **g** units with no irreversible processing. A permanent archived snapshot of this repository is deposited on Zenodo (DOI to be added upon publication).
+The processed, segmented data and the complete analysis code are provided in this repository. The raw continuous sensor recordings are not publicly released to protect participant privacy; the released data retain the original **g** units with no irreversible processing.
 
 ## 8. License
 

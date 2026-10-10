@@ -1,6 +1,6 @@
 # Preprocessing and Data-Quality Notes
 
-This document describes how the released CSV files were derived from the collected sensor data, the quality-control checks that were applied, and the conventions used in the repository.
+This document describes how the released XLSX files were derived from the collected sensor data, the quality-control checks that were applied, and the conventions used in the repository.
 
 ## 1. Data acquisition
 
@@ -20,11 +20,11 @@ The 30 Hz sampling rate is supported by the spectral content of the movements: t
 
 ## 3. File-format conversion and label standardization
 
-The source files were produced in two different formats and have been normalized to standard UTF-8 CSV:
+The source files were produced in two different formats and have been normalized to standard Excel (XLSX) workbooks:
 
-- The kicking `data`/`label` workbooks were in fact comma-separated text (with a UTF-8 BOM) saved with an `.xlsx` extension; they are read directly as CSV.
-- The upper-limb (punch/block) `data`/`label` workbooks were genuine Excel (`.xlsx`) files; they were converted to CSV.
-- In the source kicking files the action names were written in Chinese, whereas the upper-limb files already used English names. For consistency across the repository and with the class names used in the analysis, the kicking action names were translated to English using the fixed mapping below. No signal values were altered.
+- The kicking `data`/`label` workbooks were in fact comma-separated text (with a UTF-8 BOM) saved with an `.xlsx` extension; they are parsed directly.
+- The upper-limb (punch/block) `data`/`label` workbooks were genuine Excel (`.xlsx`) files.
+- Both groups are re-saved as standardized XLSX workbooks (one worksheet per file). In the source kicking files the action names were written in Chinese, whereas the upper-limb files already used English names. For consistency across the repository and with the class names used in the analysis, the kicking action names were translated to English using the fixed mapping below. No signal values were altered.
 
 | Original (Chinese) | Released (English) |
 | --- | --- |
@@ -53,7 +53,7 @@ The vast majority of values lie within +/- 6 g. A small number of transient inst
 
 ## 5. Processing deliberately not applied
 
-To keep the released data minimally processed and reversible, the following were **not** applied to the released CSV files:
+To keep the released data minimally processed and reversible, the following were **not** applied to the released XLSX files:
 
 - No low-pass / high-pass / notch filtering and no smoothing.
 - No coordinate-system rotation or sensor-fusion reorientation.
@@ -64,7 +64,7 @@ During the downstream analysis, z-score standardization is computed **within eac
 
 ## 6. Participant information
 
-- Aggregate cohort demographics (sex counts and group-level mean +/- SD for age, height, weight, and BMI, plus training-background and belt/competition-level counts) are provided in `data/cohort_summary.csv`.
+- Aggregate cohort demographics (sex counts and group-level mean +/- SD for age, height, weight, and BMI, plus training-background and belt/competition-level counts) are provided in `data/cohort_summary.xlsx`.
 - Demographics are released at the group level; per-participant demographic records and limb dominance (handedness) information are not included.
 - All records were anonymized, and the raw continuous recordings are not publicly released, to protect participant privacy.
 
