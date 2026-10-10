@@ -39,7 +39,8 @@ taekwondo-accelerometer-dataset/
 │   ├── label_kick_technique.xlsx   # Kicking labels
 │   ├── data_punch_technique.xlsx   # Upper-limb acceleration windows
 │   ├── label_punch_technique.xlsx  # Upper-limb labels
-│   └── cohort_summary.xlsx         # Aggregate cohort demographics
+│   ├── cohort_summary.xlsx         # Aggregate cohort demographics
+│   └── participant_characteristics.xlsx  # Anonymized per-participant characteristics
 ├── code/
 │   ├── taekwondo_recognition.ipynb # Full analysis pipeline
 │   └── preprocessing.py            # Format conversion and integrity checks
@@ -70,7 +71,11 @@ The signals retain the physical **g** units and the gravity component; no filter
 
 ### 3.3 Cohort summary (`cohort_summary.xlsx`)
 
-Aggregate cohort demographics — participant counts by sex and the group-level mean +/- SD for age, height, body weight, and BMI, together with training-background and belt/competition-level counts. Demographics are released at the group level; per-participant demographic records and limb-dominance (handedness) information are not included.
+Aggregate cohort demographics — participant counts by sex and the group-level mean +/- SD for age, height, body weight, and BMI, together with training-background and belt/competition-level counts. Limb-dominance (handedness) information was not recorded and is therefore not included.
+
+### 3.4 Participant characteristics (`participant_characteristics.xlsx`)
+
+Anonymized per-participant characteristics for the 20 participants: sex, height, body mass, BMI, age, and sport-specialty student status. Participant names are removed; each participant is identified by the pinyin of their surname followed by `**` (e.g., `Liu**`). Participants who share a surname therefore share the same anonymized label.
 
 ## 4. Quick Start
 
