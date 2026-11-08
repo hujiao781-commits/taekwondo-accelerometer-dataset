@@ -13,3 +13,8 @@ __pycache__/
 
 # Office lock/temp files
 ~$*
+
+# Review deliverables (not part of the data/code repository)
+revised_manuscript.docx
+response_to_reviewers.docx
+

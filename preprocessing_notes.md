@@ -4,7 +4,7 @@ This document describes how the released XLSX files were derived from the collec
 
 ## 1. Data acquisition
 
-- **Device:** five ActiGraph GT3X tri-axial accelerometers, configured at a sampling rate of **30 Hz** with a dynamic range of **+/- 6 g** per axis.
+- **Device:** five ActiGraph GT3X tri-axial accelerometers, configured at a sampling rate of **30 Hz** with a **±8 g** full-scale output range per axis.
 - **Placement:** one unit on each wrist, one at the **L5** lower-back level, and one on each ankle. Devices were oriented consistently and secured with straps.
 - **Signals:** 15 acceleration channels (5 sensors x 3 axes), reported in units of **g** (the native ActiGraph output). The static gravity component is retained.
 - **Protocol:** each participant performed a fixed set of standardized techniques; each valid execution was annotated with the action name, participant identifier, and trial number.
@@ -47,9 +47,9 @@ For every released window the following checks were performed:
 2. **Completeness:** no missing (NaN) values and no corrupted channels.
 3. **Synchronization:** consistent time indices across all five sensors.
 4. **Label consistency:** the set of sample ids in each `data` file matches the set in the corresponding `label` file.
-5. **Range check:** acceleration values were checked against the sensor's +/- 6 g linear range.
+5. **Range check:** acceleration values were checked against the sensors' ±8 g full-scale range.
 
-The vast majority of values lie within +/- 6 g. A small number of transient instantaneous readings slightly exceed +/- 6 g at the moment of impact (see `results/tables/channel_statistics.csv`); these arise from sensor non-linearity beyond the linear range, zero-bias drift, and transient mechanical vibration. Such peaks are retained in the released signals for transparency but are **not** used for quantitative peak-acceleration biomechanical analysis.
+The vast majority of values lie within ±8 g. A small number of transient instantaneous readings reach the ±8 g full-scale limits (nine readings at exactly −8.000 g and thirteen at +7.996 g; see `results/tables/channel_statistics.csv`), consistent with sensor saturation at the ±8 g limit. Such peaks are retained in the released signals for transparency but are **not** used for quantitative peak-acceleration biomechanical analysis.
 
 ## 5. Processing deliberately not applied
 
@@ -65,7 +65,7 @@ During the downstream analysis, z-score standardization is computed **within eac
 ## 6. Participant information
 
 - Aggregate cohort demographics (sex counts and group-level mean +/- SD for age, height, weight, and BMI, plus training-background and belt/competition-level counts) are provided in `data/cohort_summary.xlsx`.
-- Demographics are released at the group level; per-participant demographic records and limb dominance (handedness) information are not included.
+- Demographics are released at the group level in `cohort_summary.xlsx` and at the participant level (anonymized, with stable participant identifiers) in `participant_characteristics.xlsx`; the participant crosswalk is provided in `participant_crosswalk.csv`. Limb-dominance (handedness) information was not recorded and is therefore not included.
 - All records were anonymized, and the raw continuous recordings are not publicly released, to protect participant privacy.
 
 ## 7. Reproducibility

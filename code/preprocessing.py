@@ -4,8 +4,28 @@
 
 Converts the source workbooks (two of which are CSV text saved with an .xlsx
 extension and two of which are genuine Excel files) into standard Excel (XLSX)
-workbooks, translates the kicking action names to English for consistency, and
-runs integrity / range checks.
+workbooks, translates the kicking action names to English for consistency,
+remaps the upper-limb (punch/block) participant identifiers onto the same
+1--20 participant space used by the kicking files, and runs integrity / range
+checks.
+
+Scope note
+----------
+This script operates on *already segmented* source tables (fixed 4-second,
+120-point windows). It does NOT reconstruct the full pipeline from the raw
+continuous sensor recordings (synchronization, onset/offset detection,
+segmentation, and exclusion). The raw continuous recordings are not publicly
+released to protect participant privacy. The released data retain the original
+g units with no filtering or gravity removal.
+
+Stable participant identifiers
+------------------------------
+The released data files use a single participant-id space of 1--20:
+  * kicking (lower-limb) files: participants 1--20 (10 professional 1--10,
+    10 amateur 11--20);
+  * upper-limb (punch/block) files: participants 1--15 (the source files used
+    0--14; this script adds one so they align with participants 1--15).
+The participant crosswalk is documented in ``data/participant_crosswalk.csv``.
 
 Usage
 -----
@@ -49,7 +69,7 @@ CHANNELS = [
 ]
 
 POINTS_PER_WINDOW = 120
-SENSOR_RANGE_G = 6.0
+SENSOR_RANGE_G = 6.0  # nominal range; transient readings may exceed it
 
 
 # --------------------------------------------------------------------------- #
@@ -72,6 +92,12 @@ def translate_kick_label(label: str) -> str:
     return KICK2EN[str(label).strip()]
 
 
+def remap_punch_id(id_str: str) -> str:
+    """Align punch/block participant ids 0--14 onto the shared 1--15 space."""
+    action, subject, trial = str(id_str).strip().rsplit("_", 2)
+    return f"{action}_{int(subject) + 1}_{trial}"
+
+
 # --------------------------------------------------------------------------- #
 # Conversion
 # --------------------------------------------------------------------------- #
@@ -92,6 +118,10 @@ def convert_region(src_dir: Path, region: str) -> tuple[pd.DataFrame, pd.DataFra
         data["id"] = data["id"].map(translate_kick_id)
         label["id"] = label["id"].map(translate_kick_id)
         label["label"] = label["label"].map(translate_kick_label)
+    else:
+        # align punch/block participants 0--14 onto the shared 1--15 space
+        data["id"] = data["id"].map(remap_punch_id)
+        label["id"] = label["id"].map(remap_punch_id)
 
     return data, label
 

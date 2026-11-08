@@ -1,0 +1,21 @@
+﻿participant_id,group,kick_subject_id,punch_subject_id,available_data,note
+1,professional,1,1,kick + punch,
+2,professional,2,2,kick + punch,
+3,professional,3,3,kick + punch,
+4,professional,4,4,kick + punch,
+5,professional,5,5,kick + punch,
+6,professional,6,6,kick + punch,
+7,professional,7,7,kick + punch,
+8,professional,8,8,kick + punch,
+9,professional,9,9,kick + punch,
+10,professional,10,10,kick + punch,
+11,amateur,11,11,kick + punch,
+12,amateur,12,12,kick + punch,
+13,amateur,13,13,kick + punch,
+14,amateur,14,14,kick + punch,
+15,amateur,15,15,kick + punch,
+16,amateur,16,,kick only,upper-limb data lost (improper storage)
+17,amateur,17,,kick only,upper-limb data lost (improper storage)
+18,amateur,18,,kick only,upper-limb data lost (improper storage)
+19,amateur,19,,kick only,upper-limb data lost (improper storage)
+20,amateur,20,,kick only,upper-limb data lost (improper storage)
