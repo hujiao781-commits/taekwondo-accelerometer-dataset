@@ -10,7 +10,7 @@ This repository accompanies the manuscript *"A five-body-site wearable accelerom
 
 ## 1. Overview
 
-The dataset contains synchronized tri-axial acceleration signals collected from five body sites (both wrists, the L5 lower back, and both ankles) using five ActiGraph GT3X activity monitors. It covers 16 technique classes — 8 kicking techniques (lower-limb study) and 8 upper-limb techniques (straight punches and high/middle/low blocks), each performed on both the left and right sides.
+The dataset contains synchronized tri-axial acceleration signals collected from five body sites (both wrists, the L5 lower back, and both ankles) using five ActiGraph wGT3X-BT activity monitors. It covers 16 technique classes — 8 kicking techniques (lower-limb study) and 8 upper-limb techniques (straight punches and high/middle/low blocks), each performed on both the left and right sides.
 
 | Item | Value |
 | --- | --- |
@@ -20,7 +20,7 @@ The dataset contains synchronized tri-axial acceleration signals collected from 
 | Technique classes | 16 (8 movement types x left/right) |
 | Sampling rate | 30 Hz |
 | Window length | 4 s (120 time points) |
-| Sensors | 5 x ActiGraph GT3X |
+| Sensors | 5 x ActiGraph wGT3X-BT |
 | Acceleration channels | 15 (5 sensors x 3 axes) |
 | Samples per class | 86-105 |
 
@@ -104,7 +104,7 @@ The notebook performs data loading and integrity checks, feature extraction, sub
 
 ## 5. Technical Validation Highlights
 
-All 1,522 windows passed integrity checks: exactly 120 continuous time points, no missing values or corrupted channels, and synchronized sensor timestamps. The vast majority of acceleration values lie within the sensors' ±8 g full-scale output range; a small number of transient instantaneous readings reach the ±8 g full-scale limits (nine readings at exactly −8.000 g and thirteen at +7.996 g) at impact and are not used for quantitative peak-acceleration analysis.
+All 1,522 windows passed integrity checks: exactly 120 continuous time points, no missing values or corrupted channels, and synchronized sensor timestamps. The vast majority of acceleration values lie within the sensors' ±8 g full-scale output range; a small number of transient instantaneous readings reach the ±8 g full-scale limits (nine readings at exactly −8.000 g and thirteen at +7.996 g) and are clipped at this limit, a device-level limitation of the wGT3X-BT recordings and are not used for quantitative peak-acceleration analysis.
 
 Under a subject-level 10-fold leave-two-subjects-out protocol (all trials of a participant kept within one fold; hyperparameters selected by participant-grouped inner cross-validation with scaling fitted inside the pipeline; deep-learning models use a participant-disjoint inner validation set; values are mean +/- SD over the ten folds):
 
