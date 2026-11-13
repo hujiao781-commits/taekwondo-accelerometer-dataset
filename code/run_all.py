@@ -152,7 +152,7 @@ X, y, meta = to_windows(df)
 print(f"样本 {len(y)}，输入形状 {X.shape}，类别 {len(CLASSES)}")
 display(df.drop_duplicates("id").groupby("action").size().to_frame("n_samples"))
 
-G_LIMIT = 6.0  # ±6g 饱和阈值
+G_LIMIT = 8.0  # ±8g 饱和阈值
 
 
 def channel_statistics(df):
@@ -168,8 +168,8 @@ def channel_statistics(df):
             "channel": c, "min": float(x.min()), "max": float(x.max()),
             "mean": float(mean), "std": float(std), "skew": skew, "kurtosis": kurt,
             "peak": float(np.max(np.abs(x))),
-            "n_abs_ge_6g": int((np.abs(x) >= G_LIMIT).sum()),
-            "frac_abs_ge_6g": float((np.abs(x) >= G_LIMIT).mean()),
+            "n_abs_ge_8g": int((np.abs(x) >= G_LIMIT).sum()),
+            "frac_abs_ge_8g": float((np.abs(x) >= G_LIMIT).mean()),
         })
     return pd.DataFrame(rows)
 
@@ -183,7 +183,7 @@ counts = class_counts(df)
 stats.to_csv(RESULTS_TABLES_DIR / "channel_statistics.csv", index=False)
 counts.to_csv(RESULTS_TABLES_DIR / "class_counts.csv", index=False)
 display(stats.round(4))
-print(f"饱和(≥6g)最大比例 = {stats['frac_abs_ge_6g'].max():.4f}")
+print(f"饱和(≥8g)最大比例 = {stats['frac_abs_ge_8g'].max():.4f}")
 
 GROUPS = {
     "Front Kick": ["Left Front Kick", "Right Front Kick"],

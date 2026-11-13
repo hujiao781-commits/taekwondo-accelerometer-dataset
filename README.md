@@ -104,7 +104,7 @@ The notebook performs data loading and integrity checks, feature extraction, sub
 
 ## 5. Technical Validation Highlights
 
-All 1,522 windows passed integrity checks: exactly 120 continuous time points, no missing values or corrupted channels, and synchronized sensor timestamps. The vast majority of acceleration values lie within the sensors' ±8 g full-scale output range; a small number of transient instantaneous readings reach the ±8 g full-scale limits (nine readings at exactly −8.000 g and thirteen at +7.996 g) and are clipped at this limit, a device-level limitation of the wGT3X-BT recordings and are not used for quantitative peak-acceleration analysis.
+All 1,522 windows passed integrity checks: exactly 120 continuous time points, no missing values or corrupted channels, and synchronized sensor timestamps. The vast majority of acceleration values lie within the sensors' ±8 g full-scale output range; a small number of transient instantaneous readings reach the ±8 g full-scale limits (nine readings at exactly −8.000 g and thirteen at +7.996 g) and are clipped at this limit, a device-level limitation of the wGT3X-BT recordings, and are not used for quantitative peak-acceleration analysis.
 
 Under a subject-level 10-fold leave-two-subjects-out protocol (all trials of a participant kept within one fold; hyperparameters selected by participant-grouped inner cross-validation with scaling fitted inside the pipeline; deep-learning models use a participant-disjoint inner validation set; values are mean +/- SD over the ten folds):
 

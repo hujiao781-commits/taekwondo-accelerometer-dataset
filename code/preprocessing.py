@@ -69,7 +69,7 @@ CHANNELS = [
 ]
 
 POINTS_PER_WINDOW = 120
-SENSOR_RANGE_G = 6.0  # nominal range; transient readings may exceed it
+SENSOR_RANGE_G = 8.0  # full-scale range; readings at the limit are clipped
 
 
 # --------------------------------------------------------------------------- #
@@ -150,7 +150,7 @@ def check_region(data: pd.DataFrame, label: pd.DataFrame, region: str) -> None:
     arr = data[CHANNELS].to_numpy()
     over = int((np.abs(arr) >= SENSOR_RANGE_G).sum())
     print(f"[{region}] windows={len(label_ids)} rows={len(data)} "
-          f"points/window ok, no NaN, |a|>=6 g readings={over}")
+          f"points/window ok, no NaN, |a|>=8 g readings={over}")
 
 
 # --------------------------------------------------------------------------- #
