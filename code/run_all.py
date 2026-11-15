@@ -21,7 +21,7 @@ def display(*args, **kwargs): pass
 
 
 # 数据根目录（可用环境变量 TAEKWONDO_DATA_ROOT 覆盖）
-DATA_ROOT = Path(os.environ.get("TAEKWONDO_DATA_ROOT", r"E:\yanjiusheng\datas\腿法\dataset"))
+DATA_ROOT = Path(os.environ.get("TAEKWONDO_DATA_ROOT", r"E:/yanjiusheng/datas/datas/taekwondo-accelerometer-dataset/data"))
 RESULTS_DIR = Path.cwd() / "results"
 RESULTS_DIR.mkdir(exist_ok=True)
 RESULTS_TABLES_DIR = RESULTS_DIR / "tables"
