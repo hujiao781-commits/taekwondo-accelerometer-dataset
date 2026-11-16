@@ -737,9 +737,12 @@ dl_results = {}
 for m in ["resnet", "gru", "transformer"]:
     agg, cm, folds, hist = run_dl(m, X, y, meta, splits, device=device)
     dl_results[m] = agg
-    np.save(RESULTS_DIR / f"dl_{m}_confusion.npy", cm)
     folds.to_csv(RESULTS_TABLES_DIR / f"dl_{m}_folds.csv", index=False)
     hist.to_csv(RESULTS_TABLES_DIR / f"dl_{m}_history.csv", index=False)
+    try:
+        np.save(RESULTS_DIR / f"dl_{m}_confusion.npy", cm)
+    except Exception as _e:
+        print(f"[warn] np.save dl_{m}_confusion.npy failed: {_e}")
     avg = hist.groupby("epoch")[["lr", "train_loss", "train_acc", "val_acc"]].mean().reset_index()
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))
     axes[0, 0].plot(avg["epoch"], avg["lr"]); axes[0, 0].set_xlabel("epoch"); axes[0, 0].set_title("Learning rate")
