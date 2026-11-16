@@ -684,7 +684,7 @@ def train_fold(model, Xtr, ytr, Xva, yva, epochs=DL_EPOCHS, batch_size=DL_BATCH_
         if val_acc > best_val_acc:
             best_val_acc = val_acc
             wait = 0
-            best_weights = model.state_dict()
+            best_weights = {k: v.clone() for k, v in model.state_dict().items()}  # independent deep copy
         else:
             wait += 1
             if wait >= patience:
