@@ -113,9 +113,9 @@ Under a subject-level 10-fold leave-two-subjects-out protocol (all trials of a p
 | SVM (RBF) | 0.884 +/- 0.050 | 0.881 +/- 0.051 | 0.880 +/- 0.056 |
 | Random forest | 0.824 +/- 0.097 | 0.814 +/- 0.103 | 0.811 +/- 0.110 |
 | Decision tree | 0.598 +/- 0.096 | 0.581 +/- 0.099 | 0.581 +/- 0.107 |
-| ResNet | 0.878 +/- 0.045 | 0.870 +/- 0.050 | 0.873 +/- 0.058 |
-| GRU | 0.661 +/- 0.117 | 0.637 +/- 0.127 | 0.627 +/- 0.135 |
-| Transformer | 0.749 +/- 0.068 | 0.729 +/- 0.080 | 0.720 +/- 0.095 |
+| ResNet | 0.872 +/- 0.035 | 0.862 +/- 0.041 | 0.860 +/- 0.046 |
+| GRU | 0.630 +/- 0.082 | 0.602 +/- 0.084 | 0.587 +/- 0.079 |
+| Transformer | 0.726 +/- 0.078 | 0.704 +/- 0.085 | 0.695 +/- 0.099 |
 
 Sensor ablation (SVM; metrics pooled across the ten held-out test folds) confirms that the full five-body-site configuration is the most informative: all 15 channels 0.887, upper-limb subset (wrists + L5) 0.818, wrists only 0.706, lower-limb subset (ankles + L5) 0.624, ankles only 0.586, L5 only 0.493.
 
